@@ -1,0 +1,54 @@
+在做性能比較之前，可以先了解相關定義。
+True Positives(TP) 為 分類正確(行)
+True Negatives(TN) 為 分類正確(列)
+False Positives(FP) 為 分類錯誤(行)
+False Negatives(FN) 為 分類錯誤(列)
+
+Precision =tp/tp+fp
+Recall = tp/tp+fn
+F1-score = 2tp/2tp+fp+fn
+-----------------------------------------------------------------
+svm模型的混淆矩陣為:
+
+99 1 0 0
+0 98 2 0
+0 2 98 0
+0 0 3 97
+
+其中:
+
+TP1=99 TP2=98  TP3=98   TP4=97
+TN1=99 TN2=98  TN3=98   TN4=97
+FP1=0  FP2=3   FP3=5    FP4=0
+FN1=1  FN2=2   FN3=2    FN4=3
+
+帶入公式得:
+
+Precision1 = 99/99 = 100%
+Precision2 = 98/101 = 97%
+Precision3 = 98/103 = 95%
+Precision4 = 97/97 = 100%
+
+Recall1 = 99/100 = 99%
+Recall2 = 98/100 = 98%
+Recall3 = 98/100 = 98%
+Recall4 = 97/100 = 97%
+
+F1-score1 = 198/199 = 99.4%
+F1-score2 = 196/201 = 97.5%
+F1-score3 = 196/203 = 96.5%
+F1-score4 = 194/197 = 98.4%
+
+另外accuracy與support可直接從metrics.classification_report()函數中得知。
+
+而 KNN、DT、RF module的相關性能可依此類推得出。
+-------------------------------------------------------------------
+在比較4者的各項性能後發現:
+
+在Accuracy上，svm > knn > rf >  dt。
+在Precision上，svm > knn > rf > dt。
+在Recall上，svm > knn > rf > dt。
+在F1-score上，svm > knn > rf > dt。
+在support上，svm = knn = rf = dt。
+
+無論是比哪一個評估指標，svm linear module好像都是最好的。所以如果要用，用svm linear module比較好。
